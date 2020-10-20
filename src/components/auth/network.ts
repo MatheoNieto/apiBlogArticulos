@@ -8,4 +8,8 @@ import { sendRefreshToken } from '../../utils/sendRefreshToken'
 
 const Router = express.Router()
 
+Router.post('/', async (req, res)=>{
+  
+})
+
 export default Router
