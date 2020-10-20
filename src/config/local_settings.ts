@@ -16,3 +16,9 @@ export const configDb: any = {
   password_db: process.env.PASSWORD_DB || '',
   database: process.env.DATABASE || 'db',
 }
+
+// PARA LAS AUTHENTICACIONES
+export const configAuth:any = {
+  access_token_secret: process.env.ACCESS_TOKEN_SECRET,
+  refress_token_secret: process.env.REFRESS_TOKEN_SECRET,
+}

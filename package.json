@@ -15,7 +15,7 @@
     "dev:test": "npm run build && jest ./dist/ --watch",
     "clean": "rimraf ./dist ./data ./coverage",
     "start": "npm run build && node ./dist/index.js",
-    "migrations:create": "npx typeorm migration:create -n Test",
+    "migrations:create": "npx typeorm migration:create -n ",
     "migrations:generate": "npx typeorm migration:generate -n PostRefactoring",
     "migrations:run": "npx typeorm migration:run",
     "migrations:revert": "npx typeorm migration:revert"
