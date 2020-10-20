@@ -7,7 +7,7 @@ const Router = express.Router()
 Router.post('/', async (req, res)=>{
 
   try {
-    controller.login(req.body)
+    controller.createUser(req.body)
     .then((data) => {
       response.success(req, res,'access token:', data, 200)
 
