@@ -1,6 +1,7 @@
 import {User} from '../../entity/User'
 import {getManager} from 'typeorm'
-import {compare, hash} from 'bcryptjs'
+import {compare} from 'bcryptjs'
+import { createAccessToken } from '../../utils/auth'
 
 
 interface datosCredenciales{
@@ -8,25 +9,41 @@ interface datosCredenciales{
   password: string
 }
 
-function login(datos: datosCredenciales){
-  return  new Promise((resolve, reject)=>{
+async function login(datos: datosCredenciales){
+   
+  try {
     const userRepository = getManager().getRepository(User);
-    
+
     const {usuario, password} = datos
 
     if(!usuario || !password ){
-      reject('Usuario o contraseña son requeridos')
+      throw new Error('Usuario o contraseña son requeridos')
     }
 
-    const user = userRepository.findOne({where: datos})
+    const user: any = userRepository.findOne({
+      where: {
+        usuario,
+      }
+    })
 
     if(!user){
-      reject('El usuario no fue encontrado')
+      throw new Error('El usuario no fue encontrado')
     }
 
+    const valid = await compare(datos.password, user.password)
 
-  })
-} 
+    if(!valid){
+      throw new Error('Contraseña incorrecta')
+    }
+
+    return {
+      accessToken: createAccessToken(user)
+    }
+    
+  } catch (err) {
+    return err
+  }
+}
 
 export default {
   login
