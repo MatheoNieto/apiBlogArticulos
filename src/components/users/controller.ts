@@ -44,9 +44,7 @@ async function createUser(datos: dataCreateUser){
     where: data
   })
   
-  return {
-    accessToken: createAccessToken(user)
-  }
+  return createAccessToken(user)
 }
 
 export  default {

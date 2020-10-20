@@ -10,7 +10,7 @@ interface datosCredenciales{
 }
 
 async function login(datos: datosCredenciales){
-   
+
   try {
     const userRepository = getManager().getRepository(User);
 
@@ -20,12 +20,13 @@ async function login(datos: datosCredenciales){
       throw new Error('Usuario o contraseña son requeridos')
     }
 
-    const user: any = userRepository.findOne({
+    const user: any = await userRepository.findOne({
       where: {
         usuario,
+        activo: true
       }
     })
-
+    
     if(!user){
       throw new Error('El usuario no fue encontrado')
     }
@@ -36,9 +37,7 @@ async function login(datos: datosCredenciales){
       throw new Error('Contraseña incorrecta')
     }
 
-    return {
-      accessToken: createAccessToken(user)
-    }
+    return createAccessToken(user)
     
   } catch (err) {
     return err
@@ -48,9 +47,3 @@ async function login(datos: datosCredenciales){
 export default {
   login
 }
-
-// import {verify} from 'jsonwebtoken'
-// import {configAuth} from '../../config/local_settings'
-// import {User} from '../../entity/User'
-// import { createAccessToken, createRefreshToken } from '../../utils/auth'
-// import { sendRefreshToken } from '../../utils/sendRefreshToken'
