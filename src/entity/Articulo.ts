@@ -3,11 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  BaseEntity
 } from 'typeorm'
 
 @Entity()
-export class Articulo extends  BaseEntity{
+export class Articulo {
 
   @PrimaryGeneratedColumn()
   id!: number;

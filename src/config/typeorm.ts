@@ -5,20 +5,23 @@ import chalk from 'chalk'
 
 export  async function connect(){
   await createConnection({
-      url: `postgres://${configDb.user_db}:${configDb.password_db}@${configDb.host_db}:${configDb.port_db}/${configDb.database}`,
-      type: "postgres",
-      logging: true,
-      
-      entities:[
-        path.join(__dirname, '/../entity/**/**.ts')
-      ],
-      migrations:[
-        path.join(__dirname, '/../migrations/**/**.ts')
-      ],
-      cli:{
-        entitiesDir: "/../entity",
-        migrationsDir: "/../migrations"
-      },
+    type: 'postgres',
+    url: `postgres://${configDb.user_db}:${configDb.password_db}@db:${configDb.port_db}/${configDb.database}`,
+    logging: true,
+    synchronize: true,
+    entities:[
+      path.join(__dirname, '/../entity/**/**.ts')
+    ],
+    migrations:[
+      path.join(__dirname, '/../migrations/**/**.ts')
+    ],
+    cli:{
+      entitiesDir: "/../entity",
+      migrationsDir: "/../migrations"
+    },
+    extra: {
+      connectionLimit: 5
+    }
   })
   .then(()=>{
     console.log(chalk.black.bgMagenta(`[DATABASE] Database is connected`));
