@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+ormconfig.json
 package-lock.json
 yarn.lock
 npm-debug.log*
